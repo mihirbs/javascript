@@ -47,9 +47,9 @@ console.log(e);
 we can update let
 */
 
-const author = "Mihir";
-let author = 5; // throws an error because constant cannot be changed
-author = 5; // throws an error because constant cannot be changed
-// const can neither be updated nor redeclare
+// const author = "Mihir";
+// let author = 5; // throws an error because constant cannot be changed
+// author = 5; // throws an error because constant cannot be changed
+// // const can neither be updated nor redeclare
 
 const mihi = 0;

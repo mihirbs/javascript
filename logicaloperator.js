@@ -11,7 +11,7 @@
 
     let a = 5;
  let b = 10;
- console.log(a > 5 && b > 10); // false if both the conditions are true than and only it will give true
- console.log(a > 5 || b > 10); // false if 
- console.log(!a > 5); // false
+ console.log(a > 5 && b > 10); // false if both the conditions are true than and only it will give true , basically its is an AND  gate
+ console.log(a > 5 || b > 10); // false if , basically it is or gate
+ console.log(!a > 5); // false , its is a not gate
  
