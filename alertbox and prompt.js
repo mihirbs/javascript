@@ -1,0 +1,1 @@
+ prompt("chaliye shuru karte hai!");
