@@ -67,3 +67,10 @@ for (let key in person) {
 
 }
 
+// This line uses template literals, which are enclosed in backticks (`) and allow you to embed variables directly inside a string.
+// ${key} is a placeholder inside the template literal. It will be replaced with the current value of the key variable during each loop iteration.
+// ${person[key]} accesses the value of the property whose name is stored in key.
+// For example, if key is "name", then person[key] is the same as person["name"], which returns "Leo".
+// If key is "age", then person[key] returns 21.
+// If key is "city", then person[key] returns "Mumbai".
+// The console.log() statement outputs the property name and its corresponding value in the format key: value.
