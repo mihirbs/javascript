@@ -79,3 +79,5 @@ for (let key in person) {
 // If key is "age", then person[key] returns 21.
 // If key is "city", then person[key] returns "Mumbai".
 // The console.log() statement outputs the property name and its corresponding value in the format key: value.
+
+

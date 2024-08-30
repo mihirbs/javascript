@@ -16,3 +16,28 @@
 //     }
 // }
 
+// for in loop
+{
+
+for (let variable in object) {
+    // code block to be executed
+}
+
+
+let person = {name: "John", age: 30, city: "New York"};
+for (let key in person) {
+    console.log(key + ": " + person[key]);
+}
+
+}
+
+// for of loop
+
+let str="vrajchampak";
+
+for (let i of str) {
+    console.log(i);
+}
+// this loop is used for strings and arrays
+
+
