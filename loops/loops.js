@@ -1,3 +1,8 @@
+// fast summary = for loop: Best for when the number of iterations is known.
+// while loop: Best for when the number of iterations is unknown, and the loop might not run at all.
+// do...while loop: Similar to while loop but guarantees at least one iteration.
+// for...in loop: Best for iterating over the properties of an object.
+// for...of loop: Best for iterating over the values of iterable objects.
 // // script.js
 
 // function generateNumbers() {
