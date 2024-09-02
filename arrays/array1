@@ -1,0 +1,28 @@
+// array is a collection of items
+// in simpler terms it is used to store items
+// it is generally used when we store related type of information
+// it stores items in a linear way
+// in array name does't matter only the position (index) matters
+
+let avengers = ["ironman","hulk","captain","thor"];
+// let marks = [96,75,48,83,66];
+// let info = ["Vraj",86,"Delhi"];
+
+// console.log(avengers);
+// console.log(avengers.length);// property
+// console.log(marks);
+// console.log(marks.length);// array is itself an object type
+ // in array instead of key we use index
+ // this was some basic things about array
+
+// array indices
+// values are stord in a linear way and can be access by its position (index) like 0,1,2,3,4,5
+//strings are immutable in  
+
+// looping over an array
+
+for (let i = o; i < avengers.length; i++){
+    console.log(avengers[i]);
+}
+
+//for of 
