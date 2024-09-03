@@ -26,3 +26,37 @@ for (let i = o; i < avengers.length; i++){
 }
 
 //for of 
+{
+let arr = [1, 2, 3, 4, 5];
+
+for (let element of arr) {
+  console.log(element);
+}
+}
+// for in 
+{let arr = [1, 2, 3, 4, 5];
+
+    for (let index in arr) {
+      console.log(arr[index]);
+    }
+    }
+//while 
+{let arr = [1, 2, 3, 4, 5];
+    let i = 0;
+    
+    while (i < arr.length) {
+      console.log(arr[i]);
+      i++;
+    }
+    }
+    
+    // do while
+    {
+        let arr = [1, 2, 3, 4, 5];
+        let i = 0;
+        
+        do {
+          console.log(arr[i]);
+          i++;
+        } while (i < arr.length);
+        }
