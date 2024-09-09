@@ -1,0 +1,9 @@
+function myFunction() {
+  alert('Button was clicked!');
+}
+
+// Add the event listener
+button.addEventListener('click', myFunction);
+
+// Remove the event listener
+button.removeEventListener('click', myFunction);
