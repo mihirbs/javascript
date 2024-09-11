@@ -1,0 +1,22 @@
+// The await keyword is used inside async functions to pause the execution of the function until a promise is resolved. It makes asynchronous code look and behave more like synchronous code.
+
+function fetchData(){
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve("data Fetched");
+        },2000);
+    });
+}
+
+// an async function using await
+
+async function getData() {
+    console.log("Fetching Data.....");
+
+    // await will pause the execution until we get the result
+let result = await fetchData();
+
+    console.log(result); // outpu will be fdta fetched after 2 seconds
+    
+}
+getData();
