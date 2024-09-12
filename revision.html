@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JavaScript Revision</title>
+</head>
+<body>
+
+  <h1 id="heading">JavaScript Revision Example</h1>
+  <button id="myButton">Click me</button>
+
+  <script>
+    // Variables
+    let name = "Leo";
+    const age = 24;
+
+    // Function
+    function greet(name) {
+      return "Hello, " + name;
+    }
+
+    // Conditionals
+    if (age >= 18) {
+      console.log("Adult");
+    } else {
+      console.log("Minor");
+    }
+
+    // Arrays and Array Methods
+    let fruits = ["Apple", "Banana", "Orange"];
+    let doubled = fruits.map(fruit => fruit.toUpperCase());
+
+    console.log(doubled);  // ["APPLE", "BANANA", "ORANGE"]
+
+    // Event Listener
+    document.getElementById("myButton").addEventListener("click", function() {
+      alert(greet(name));
+    });
+
+    // Promises and Async/Await
+    let fetchData = new Promise((resolve, reject) => {
+      setTimeout(() => resolve("Data loaded!"), 1000);
+    });
+
+    async function showData() {
+      let result = await fetchData;
+      console.log(result);
+    }
+
+    showData();  // Data loaded! (after 1 second)
+  </script>
+  
+</body>
+</html>
