@@ -1,92 +1,115 @@
-const express = require('express');
+const express = require("express");
+const mongoose = require("mongoose");
 const app = express();
-const port = 5000;
 
-app.use(express.json()); // Middleware to parse JSON bodies
+// Middleware to parse JSON bodies
+app.use(express.json());
 
-// Existing list of users
-let users = [
-    { id: 1, name: 'Mihir Solanki' },
-    { id: 2, name: 'Jay Patel' },
-    { id: 3, name: 'Vraj Patel' }
-];
+// MongoDB Connection String
+const mongoURI = "mongodb://localhost:27017/express";
 
-// GET request to retrieve all users
-app.get('/api/users', (req, res) => {
-    res.json(users);
+// Connect to MongoDB
+mongoose
+  .connect(mongoURI)
+  .then(() => console.log("MongoDB connected"))
+  .catch((err) => console.error("Error connecting to MongoDB:", err));
+
+// Define a Mongoose schema for users
+const userSchema = new mongoose.Schema({
+  name: String,
+  age: Number,
 });
 
-// POST request to add a new user
-app.post('/users', (req, res) => {
-    const newUser = {
-        id: users.length + 1,
-        name: req.body.name,
-        age: req.body.age,
-        testing: req.body.testing
-    };
-    users.push(newUser);
-    res.status(200).json(newUser);
+// Create a Mongoose model based on the schema
+const User = mongoose.model("User", userSchema);
+
+// GET request to fetch all users from MongoDB
+app.get("/users", async (req, res) => {
+  try {
+    const users = await User.find(); // Fetch all users from MongoDB
+    res.status(200).json(users);
+  } catch (err) {
+    res.status(500).json({ message: "Error fetching users", error: err });
+  }
 });
 
-// PUT request to update an existing user
-app.put('/users/:id', (req, res) => {
-    const { id } = req.params;  // Extract user id from the URL
-    const { name, age } = req.body;  // Extract name and age from the request body
+// POST request to add a new user to MongoDB
+app.post("/users", async (req, res) => {
+  // Check if both name and age are provided
+  if (!req.body.name || !req.body.age) {
+    return res.status(400).json({ message: "Name and age are required." });
+  }
 
-    // Find the user with the matching id
-    const user = users.find(u => u.id === parseInt(id));
+  try {
+    const newUser = new User({
+      name: req.body.name,
+      age: req.body.age,
+    });
+    await newUser.save(); // Save the user to MongoDB
+    res.status(201).json(newUser); // 201: Created
+  } catch (err) {
+    res.status(500).json({ message: "Error saving user", error: err });
+  }
+});
 
-    // If user is not found, return 404 error
-    if (!user) {
-        return res.status(404).json({ message: 'User not found' });
+// PUT request to update a user in MongoDB
+app.put("/users/:id", async (req, res) => {
+  const userId = req.params.id;
+  try {
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { name: req.body.name, age: req.body.age },
+      { new: true }
+    ); // Find and update the user by ID
+
+    if (!updatedUser) {
+      return res.status(404).json({ message: "User not found" });
     }
 
-    // Update the user's data if name or age is provided
-    if (name) user.name = name;
-    if (age) user.age = age;
-
-    res.status(200).json(user);
+    res.status(200).json(updatedUser);
+  } catch (err) {
+    res.status(500).json({ message: "Error updating user", error: err });
+  }
 });
 
-// DELETE request to delete a user by id
-app.delete('/users/:id', (req, res) => {
-    const { id } = req.params;  // Extract user id from the URL
+// DELETE request to remove a user by ID from MongoDB
+app.delete("/users/:id", async (req, res) => {
+  const userId = req.params.id;
+  try {
+    const deletedUser = await User.findByIdAndDelete(userId); // Find and delete the user by ID
 
-    // Find the user with the matching id
-    const userIndex = users.findIndex(u => u.id === parseInt(id));
-
-    // If user is not found, return 404 error
-    if (userIndex === -1) {
-        return res.status(404).json({ message: 'User not found' });
+    if (!deletedUser) {
+      return res.status(404).json({ message: "User not found" });
     }
 
-    // Remove the user from the array
-    const deletedUser = users.splice(userIndex, 1); // Splice removes the element from the array
-
-    res.status(200).json({ message: 'User deleted', user: deletedUser });
+    res.status(200).json({ message: "User deleted successfully" });
+  } catch (err) {
+    res.status(500).json({ message: "Error deleting user", error: err });
+  }
 });
 
-// PATCH request to partially update an existing user
-app.patch('/users/:id', (req, res) => {
-    const { id } = req.params;  // Extract user id from the URL
-    const { name, age } = req.body;  // Extract name and age from the request body
+// PATCH request to update a user's details in MongoDB
+app.patch("/users/:id", async (req, res) => {
+  const userId = req.params.id;
+  try {
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { name: req.body.name, age: req.body.age },
+      { new: true }
+    );
 
-    // Find the user with the matching id
-    const user = users.find(u => u.id === parseInt(id));
-
-    // If user is not found, return 404 error
-    if (!user) {
-        return res.status(404).json({ message: 'User not found' });
+    if (!updatedUser) {
+      return res.status(404).json({ message: "User not found" });
     }
 
-    // Update the user's data if name or age is provided
-    if (name !== undefined) user.name = name;  // Only update if name is provided
-    if (age !== undefined) user.age = age;  // Only update if age is provided
-
-    res.status(200).json(user);
+    res.status(200).json(updatedUser);
+  } catch (err) {
+    res.status(500).json({ message: "Error updating user", error: err });
+  }
 });
 
 // Start the server
+const port = 3000;
 app.listen(port, () => {
-    console.log(`Server is running at http://localhost:${port}`);
+  console.log(`Server running on http://localhost:${port}`);
 });

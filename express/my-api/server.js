@@ -7,7 +7,7 @@ const app = express();
 app.use(express.json());
 
 // Define a basic route
-app.get('/', (req, res) => {
+app.get('/localhost:27017/local/startup', (req, res) => {
     res.send('API is running...');
 });
 
@@ -17,12 +17,11 @@ app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
 // Replace with your actual MongoDB URI
-const mongoURI = 'mongodb://localhost:27017/mydatabase'; 
+const mongoURI = 'mongodb://localhost:27017/local/startup_log'; 
 
 // Connect to MongoDB
-mongoose.connect(mongoURI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
+mongoose.connect('mongodb://localhost:27017/local/', {
+   
 });
 
 const db = mongoose.connection;
